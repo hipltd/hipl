@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haim International | Engineered Marketing</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Updated favicon to vibrant orange -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%23EA580C'>∑</text></svg>">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FAF9F6; /* Pale off-white */
+            color: #111827; /* Dark charcoal */
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px 80px 24px;
+        }
+        
+        /* Top Left Navigation */
+        .top-nav {
+            display: flex;
+            gap: 32px;
+            margin-bottom: 60px;
+            border-bottom: 1px solid #E5E7EB;
+            padding-bottom: 16px;
+        }
+        .tab-btn {
+            background: none;
+            border: none;
+            color: #6B7280;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            padding: 0;
+            position: relative;
+            transition: color 0.2s;
+        }
+        .tab-btn:hover {
+            color: #111827;
+        }
+        .tab-btn.active {
+            color: #EA580C; /* Vibrant Orange */
+            font-weight: 700;
+        }
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -17px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #EA580C;
+        }
+
+        /* Hero Section */
+        .hero {
+            max-width: 800px;
+            margin-bottom: 40px;
+        }
+        .badge {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: #EA580C;
+            background-color: rgba(234, 88, 12, 0.1);
+            border: 1px solid rgba(234, 88, 12, 0.2);
+            padding: 6px 12px;
+            border-radius: 20px;
+            margin-bottom: 24px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            letter-spacing: -1.5px;
+            margin: 0 0 24px 0;
+            line-height: 1.1;
+            color: #111827;
+        }
+
+        /* Tab Content Area */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .tab-content.grid-layout.active {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Typography for Text Tabs */
+        p.subtitle {
+            font-size: 1.5rem;
+            color: #4B5563; /* Medium gray */
+            margin: 0;
+            max-width: 800px;
+            line-height: 1.5;
+        }
+        .highlight {
+            color: #EA580C;
+            font-weight: 600;
+        }
+
+        /* Cards */
+        .card {
+            background-color: #FFFFFF;
+            border: 1px solid #E5E7EB;
+            border-radius: 12px;
+            padding: 32px;
+            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: #EA580C;
+            box-shadow: 0 10px 25px -5px rgba(234, 88, 12, 0.15);
+        }
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .card-index {
+            font-family: 'JetBrains Mono', monospace;
+            color: #EA580C;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+        .card h3 {
+            margin: 0;
+            font-size: 1.2rem;
+            color: #111827;
+        }
+        .card p {
+            margin: 0;
+            color: #4B5563;
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            p.subtitle { font-size: 1.25rem; }
+            .top-nav { gap: 20px; overflow-x: auto; white-space: nowrap; padding-bottom: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Top Left Tabs -->
+        <nav class="top-nav">
+            <button class="tab-btn active" onclick="switchTab('home', this)">Home</button>
+            <button class="tab-btn" onclick="switchTab('about', this)">About</button>
+            <button class="tab-btn" onclick="switchTab('products', this)">Products</button>
+            <button class="tab-btn" onclick="switchTab('services', this)">Services</button>
+        </nav>
+
+        <!-- Hero Section (Always visible) -->
+        <div class="hero">
+            <div class="badge">Data-Driven Growth Infrastructure</div>
+            <h1>Engineering Growth through Data.</h1>
+        </div>
+
+        <!-- Home Content (Active by default) -->
+        <div id="home" class="tab-content active">
+            <p class="subtitle">Our edge isn't guessing what works. It's <span class="highlight">mathematical certainty</span>. We combine proprietary quantitative tools and elite consulting to deploy marketing campaigns backed by hard statistics.</p>
+        </div>
+
+       <!-- About Content -->
+        <div id="about" class="tab-content">
+            <p class="subtitle" style="margin-bottom: 40px;">With over five years of experience architecting content and marketing strategies for leading fintech brands, we saw firsthand where traditional agencies fail: a reliance on intuition over empirical evidence. Today, Haim International is pivoting the industry standard by building a robust, data-driven infrastructure behind marketing. We provide a hybrid of proprietary products—ranging from off-the-shelf diagnostic tools to bespoke quantitative models—alongside elite consulting services to help our clients engineer predictable visibility and scalable growth.</p>
+            
+            <div style="border-top: 1px solid #E5E7EB; padding-top: 24px; max-width: 800px; display: flex; flex-direction: column; gap: 24px;">
+                <div>
+                    <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #EA580C; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 6px; font-weight: 700;">Headquarters</span>
+                    <span style="font-size: 1.1rem; color: #111827; font-weight: 500;">124 City Road, London, United Kingdom, EC1V 2NX</span>
+                </div>
+                
+                <div>
+                    <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #EA580C; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 6px; font-weight: 700;">Contact</span>
+                    <span style="font-size: 1.1rem; color: #111827; font-weight: 500;">priyansh@haiminternational.co</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Products Content -->
+        <div id="products" class="tab-content grid-layout">
+            <a href="/siteflare" style="text-decoration: none; color: inherit; display: block;">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-index">01</span>
+                        <h3>AI-Readiness Checker (SiteFlare)</h3>
+                    </div>
+                    <p>A diagnostic tool to evaluate your current data infrastructure and identify immediate bottlenecks preventing AI deployment at scale.</p>
+                </div>
+            </a>
+            
+            <a href="/shopscore" style="text-decoration: none; color: inherit; display: block;">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-index">03</span>
+                        <h3>ShopScore</h3>
+                    </div>
+                    <p>A quantitative assessment engine for your e-commerce funnels, pinpointing exact drop-off rates and statistical revenue leakage.</p>
+                </div>
+            </a>
+            
+            <!-- YouTube Analyzer remains a non-clickable card for now -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-index">02</span>
+                    <h3>YouTube Content Analyzer</h3>
+                </div>
+                <p>A machine-learning pipeline that scrapes your last 100 videos, analyzing semantic titles and duration to predict your channel's optimal algorithmic variables.</p>
+            </div>
+        </div>
+
+        <!-- Services Content -->
+        <div id="services" class="tab-content grid-layout">
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-index">01</span>
+                    <h3>Statistical Campaign Engineering</h3>
+                </div>
+                <p>Moving beyond A/B testing. We deploy capital and creative only where the probability of success is mathematically proven by historical market data.</p>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-index">02</span>
+                    <h3>Quantitative GTM Strategy</h3>
+                </div>
+                <p>Architecting product launches built on empirical market volume, keyword velocity, and quantifiable user demand.</p>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-index">03</span>
+                    <h3>Competitor Reverse-Engineering</h3>
+                </div>
+                <p>Scraping and analyzing your rivals' digital footprints to map out their most profitable acquisition channels and growth levers.</p>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-index">04</span>
+                    <h3>Data-Driven Product Decisions</h3>
+                </div>
+                <p>Aligning your product development roadmap with statistical user behavior, ensuring you build features the market is actively paying for.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab Switching Logic -->
+    <script>
+        function switchTab(tabId, element) {
+            // Remove active state from all buttons and contents
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            // Add active state to clicked button and corresponding content
+            element.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+    </script>
+
+</body>
+</html>
