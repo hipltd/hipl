@@ -47,6 +47,27 @@ MASTER_USER_ID=os.environ.get("MASTER_USER_ID", None)
 app = FastAPI()
 # ------------------------------------------------------------- #
 
+# introducing the limiter 
+limiter = Limiter(key_func=get_remote_address)
+app.state.limiter = limiter
+
+# Custom Exception Handler to return a clean JSON error on HTTP 429
+@app.exception_handler(RateLimitExceeded)
+async def rate_limit_handler(request: Request, exc: RateLimitExceeded):
+    return JSONResponse(
+        status_code=429,
+        content={"error": "Too many requests. Please wait a minute before running another audit."}
+    )
+# ------------------------------------------------------------- #
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000", "http://localhost:8000", "http://127.0.0.1:8000"],  
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+# ------------------------------------------------------------- #
+
 # global crypto setup
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 # ------------------------------------------------------------- #
@@ -165,26 +186,6 @@ async def init_db():
     # closing connection 
     await connection.close()
 # ------------------------------------------------------------- #
-
-# introducing the limiter 
-limiter = Limiter(key_func=get_remote_address)
-app.state.limiter = limiter
-
-# Custom Exception Handler to return a clean JSON error on HTTP 429
-@app.exception_handler(RateLimitExceeded)
-async def rate_limit_handler(request: Request, exc: RateLimitExceeded):
-    return JSONResponse(
-        status_code=429,
-        content={"error": "Too many requests. Please wait a minute before running another audit."}
-    )
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # Next.js default port
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
 class URLRequest(BaseModel):
     url: str
