@@ -5,9 +5,9 @@ import re
 import socket 
 import httpx 
 from bs4 import BeautifulSoup
-from urlparse import urllib.parse
+from urllib.parse import urlparse
 from protego import Protego 
-from playwright.async_api import async_playwright, PlaywrightTimeout
+from playwright.async_api import async_playwright, TimeoutError as PlaywrightTimeout
 # ------------------------------------------------------------- #
 
 # AI bots 

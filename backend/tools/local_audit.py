@@ -1,20 +1,21 @@
 import os 
 import httpx
-import load_dotenv from dotenv
+from dotenv import load_dotenv 
+# ------------------------------------------------------------- #
+
+# raw vs rendered settings 
+BROWSER_UA = (
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/124.0 Safari/537.36"
+)
+MIN_WORDS = 50          # below this the page is too thin to judge
+PASS_RATIO = 0.80       # raw HTML has >= 80% of the rendered text
+PARTIAL_RATIO = 0.40    # 40%-80% = partial, below 40% = fail
 # ------------------------------------------------------------- #
 
 # loading the API KEY
 load_dotenv()
 API_KEY = os.environ.get('GOOGLE_API_KEY')
-# ------------------------------------------------------------- #
-
-# loading the db credentials
-load_dotenv()
-db_username = os.getenv('DB_USER')
-db_password = os.getenv('DB_PASSWORD')
-db_name = os.getenv('DB_NAME')
-JWT_SECRET = os.environ.get("JWT_SECRET", "super-secret-fallback-key")
-MASTER_USER_ID=os.environ.get("MASTER_USER_ID", None)
 # ------------------------------------------------------------- #
 
 async def audit_local(query):
