@@ -1,15 +1,6 @@
 # importing libraries
 
 import os
-import asyncio
-import ipaddress
-import re
-import socket
-import httpx 
-from bs4 import BeautifulSoup
-from urllib.parse import urlparse
-from protego import Protego
-from playwright.async_api import async_playwright, TimeoutError as PlaywrightTimeout
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import Request, Depends, HTTPException
@@ -65,6 +56,7 @@ app.add_middleware(
     allow_origins=["http://localhost:3000", "http://127.0.0.1:3000", "http://localhost:8000", "http://127.0.0.1:8000"],  
     allow_methods=["*"],
     allow_headers=["*"],
+    allow_credentials=True
 )
 # ------------------------------------------------------------- #
 
@@ -289,17 +281,17 @@ async def run_local_audit(request: Request, body: LocalRequest, user_id: str = D
 @app.post("/api/audit")
 @limiter.limit("5/minute")
 async def run_audit(request: Request, body: URLRequest):
-    # 1. Run the massive scraping engine
+    # run the massive scraping engine
     raw_results = await scrape_website(body.url)
     
-    # 2. Check if the scraper caught an invalid URL or SSRF attempt
+    # check if the scraper caught an invalid URL or SSRF attempt
     if "error" in raw_results:
         return {"error": raw_results["error"]}
         
-    # 3. Pass the raw data into the grading engine
+    # pass the raw data into the grading engine
     final_scorecard = generate_scorecard(raw_results)
     
-    # 4. Return the formatted data to the React UI
+    # return the formatted data to the React UI
     return {
         "scorecard": final_scorecard,
         "raw_metrics": raw_results
