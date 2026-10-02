@@ -570,6 +570,7 @@ def generate_scorecard(audit_results):
     total_score = 0
     category_scores = {}
     action_items = []
+    strengths = []
     # ------------------------------------------------------------- #
     
     # initializing the score variables 
@@ -628,6 +629,7 @@ def generate_scorecard(audit_results):
     if llms_data.get("exists") is True:
         if llms_data.get("word_count", 0) >= 20 and llms_data.get("has_markdown") is True:
             ai_llms_score += 5
+            strengths.append("LLMS.txt documentation detected for AI crawlers.")
         else:
             action_items.append("Your /llms.txt file was found, but it appears to lack sufficient content or proper Markdown formatting.")
     else:
@@ -639,6 +641,7 @@ def generate_scorecard(audit_results):
     
     if sitemap_metrics.get("found") is True:
         ai_bonus += 2
+        strengths.append("Valid XML sitemap deteced.")
         
         # Reward populated URLs
         if sitemap_metrics.get("url_count", 0) > 0:
@@ -706,11 +709,13 @@ def generate_scorecard(audit_results):
 
     if audit_results["seo"].get("meta_desc") != "None":
         seo_score += 4
+        strengths.append("Meta description configured.")
     else:
         action_items.append("Add a Meta Description to improve click-through rates from search engines.")
 
     if audit_results["seo"].get("h1_count") == 1:
         seo_score += 4
+        strengths.append("Decent H1 tag structure.")
     else:
         action_items.append("Ensure your page has exactly one H1 tag to establish the main topic.")
 
@@ -747,6 +752,7 @@ def generate_scorecard(audit_results):
 
     if load_time < 1.0:
         perf_score += 15
+        strengths.append("Great server response time (under 1 second).")
     elif load_time <= 2.5:
         perf_score += 10
         action_items.append("Load time is acceptable but could be improved (between 1-2.5s).")
@@ -809,11 +815,13 @@ def generate_scorecard(audit_results):
     for header in ["strict-transport-security", "x-frame-options", "x-content-type-options"]:
         if audit_results["security"].get(header) is True:
             sec_track_score += 1
+            strengths.append("Strict Transport Security (HSTS) enabled.")
         else:
             action_items.append(f"Missing security header: {header}. Add this to protect your visitors.")
 
     if audit_results["tracking"].get("google_analytics") is True:
         sec_track_score += 1
+        strengths.append("Google Analytics tracking active.")
     else:
         action_items.append("No Google Analytics detected. Install analytics to track your marketing efforts.")
 
@@ -843,9 +851,10 @@ def generate_scorecard(audit_results):
     # Assemble the final dictionary
     final_scorecard = {
         "total_score": total_score,
-        "letter_grade": letter_grade,
+        "ai_readiness_grade": letter_grade,
         "category_scores": category_scores,
-        "recommendations": action_items
+        "strengths": strengths,
+        "action_items": action_items
     }
 
     return final_scorecard
