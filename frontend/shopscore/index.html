@@ -19,7 +19,7 @@
         h1 { font-size: 3rem; font-weight: 700; margin: 0 0 16px 0; letter-spacing: -1px; }
         p.subtitle { font-size: 1.25rem; color: #4B5563; margin-bottom: 40px; }
         
-        .search-box { display: flex; gap: 16px; margin-bottom: 40px; }
+        .search-box { display: flex; gap: 16px; margin-bottom: 16px; }
         input[type="text"] {
             flex: 1; padding: 16px 24px; font-size: 1.1rem; border: 1px solid #E5E7EB; 
             border-radius: 8px; font-family: 'Inter', sans-serif; outline: none;
@@ -31,6 +31,14 @@
         }
         button:hover { background-color: #C2410C; }
         button:disabled { background-color: #FCA5A5; cursor: not-allowed; }
+
+        .search-guide {
+            background-color: #F3F4F6; padding: 16px 24px; border-radius: 8px; 
+            margin-bottom: 40px; border: 1px solid #E5E7EB;
+        }
+        .search-guide h4 { margin: 0 0 8px 0; color: #374151; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .search-guide ol { margin: 0; padding-left: 20px; color: #4B5563; font-size: 0.95rem; }
+        .search-guide li { margin-bottom: 4px; }
 
         #error-message {
             display: none; background-color: #FEE2E2; color: #991B1B; padding: 16px; 
@@ -70,16 +78,24 @@
 <body>
 
     <div class="container">
-        <!-- Updated back-link pointing explicitly to index.html -->
-        <a href="/home/index.html" class="back-link">← Back to Haim International</a>
+        <a href="/products/index.html" class="back-link">← Back to Products</a>
         
-        <h1>ShopScore (Local Search Audit)</h1>
+        <h1>ShopScore</h1>
         <p class="subtitle">Audit Google Business Profiles, review velocity, and local search signals.</p>
         
         <form class="search-box" id="audit-form">
             <input type="text" id="query-input" placeholder="e.g. Joe's Coffee Shop, London" required>
-            <button type="submit" id="submit-btn">Audit Local Profile</button>
+            <button type="submit" id="submit-btn">Audit Profile</button>
         </form>
+
+        <div class="search-guide">
+            <h4>How to search effectively:</h4>
+            <ol>
+                <li>Type the <strong>exact business name</strong> as it appears on Google.</li>
+                <li>Add a comma, then the <strong>city or neighborhood</strong> (e.g., "Starbucks, Soho").</li>
+                <li>Ensure the business actually has a verified Google Maps listing.</li>
+            </ol>
+        </div>
 
         <div id="error-message"></div>
 
@@ -130,10 +146,16 @@
             dashboard.style.display = "none";
 
             try {
-                // Hardcoded port 8000 and 127.0.0.1 to avoid Python static server mismatch
+                const token = localStorage.getItem('haim_jwt');
+                const headers = { "Content-Type": "application/json" };
+                
+                if (token) {
+                    headers["Authorization"] = `Bearer ${token}`;
+                }
+
                 const response = await fetch("http://127.0.0.1:8000/api/local", {
                     method: "POST",
-                    headers: { "Content-Type": "application/json" },
+                    headers: headers,
                     credentials: "omit", 
                     body: JSON.stringify({ 
                         query: query,
@@ -141,7 +163,6 @@
                     })
                 });
 
-                // Catch HTML errors (like 404 or 500) before attempting to parse them as JSON
                 if (!response.ok && response.headers.get("content-type")?.indexOf("application/json") === -1) {
                     throw new Error("Backend server error. Ensure Uvicorn is running on port 8000.");
                 }
@@ -150,7 +171,8 @@
 
                 if (!response.ok || data.error) {
                     if (data.require_signup) {
-                        throw new Error(data.error + " (Authentication required)");
+                        window.location.href = "../auth/index.html";
+                        return;
                     }
                     throw new Error(data.error || "Failed to complete local profile audit.");
                 }
@@ -196,7 +218,7 @@
                 errorDiv.style.display = "block";
             } finally {
                 btn.disabled = false;
-                btn.textContent = "Audit Local Profile";
+                btn.textContent = "Audit Profile";
             }
         });
     </script>

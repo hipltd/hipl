@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products | Haim International</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%23EA580C'>∑</text></svg>">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #FAF9F6; color: #111827; margin: 0; padding: 0; line-height: 1.6; }
+
+        /* Global Header Navbar */
+        header { display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; background-color: #FFFFFF; border-bottom: 1px solid #E5E7EB; }
+        .brand { font-size: 1.2rem; font-weight: 700; color: #111827; text-decoration: none; letter-spacing: -0.5px; }
+        .nav-links { display: flex; gap: 24px; }
+        .nav-links a { text-decoration: none; color: #4B5563; font-weight: 500; font-size: 0.95rem; transition: color 0.2s; }
+        .nav-links a:hover, .nav-links a.active { color: #EA580C; }
+        .auth-btn { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #6B7280; text-decoration: none; text-transform: uppercase; padding: 8px 16px; border: 1px solid #E5E7EB; border-radius: 8px; transition: all 0.2s; }
+        .auth-btn:hover { color: #EA580C; border-color: #EA580C; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 60px 24px; }
+        h1 { font-size: 3.5rem; font-weight: 700; margin: 0 0 16px 0; letter-spacing: -1px; }
+        p.subtitle { font-size: 1.25rem; color: #4B5563; margin-bottom: 60px; max-width: 600px; }
+        
+        .grid-layout { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+        
+        .product-card { 
+            background-color: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 12px; padding: 32px; 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); transition: transform 0.2s, box-shadow 0.2s;
+            display: flex; flex-direction: column; text-decoration: none; color: inherit;
+        }
+        .product-card:hover { transform: translateY(-4px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); border-color: #EA580C; }
+        
+        .product-card h3 { margin: 0 0 12px 0; font-size: 1.5rem; color: #111827; }
+        .product-card p { margin: 0 0 24px 0; color: #4B5563; font-size: 0.95rem; flex-grow: 1; }
+        
+        .status-badge { 
+            align-self: flex-start; padding: 4px 12px; border-radius: 9999px; font-size: 0.75rem; 
+            font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .status-live { background-color: #D1FAE5; color: #065F46; }
+        .status-building { background-color: #FEF3C7; color: #92400E; }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            header { flex-direction: column; gap: 16px; padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="../home/index.html" class="brand">Haim International</a>
+        <nav class="nav-links">
+            <a href="../home/index.html">Home</a>
+            <a href="#">About</a>
+            <a href="index.html" class="active">Products</a>
+            <a href="#">Contact</a>
+        </nav>
+        <a href="../auth/index.html" class="auth-btn" id="auth-link">Sign In</a>
+    </header>
+
+    <div class="container">
+        <h1>Products</h1>
+        <p class="subtitle">A complete suite of diagnostic and intelligence tools for digital marketers and agencies.</p>
+        
+        <div class="grid-layout">
+            <!-- SiteFlare -->
+            <a href="../siteflare/index.html" class="product-card">
+                <h3>SiteFlare</h3>
+                <p>Quantitative audit on marketing architecture, SEO technicals, and AI crawler readiness.</p>
+                <span class="status-badge status-live">Live (Free)</span>
+            </a>
+
+            <!-- ShopScore -->
+            <a href="../shopscore/index.html" class="product-card">
+                <h3>ShopScore</h3>
+                <p>Google Business Profile auditing, review velocity tracking, and local SEO signals.</p>
+                <span class="status-badge status-live">Live (Limits Apply)</span>
+            </a>
+
+            <!-- AdPeek -->
+            <a href="#" class="product-card">
+                <h3>AdPeek</h3>
+                <p>Competitor ad intelligence. Surface running Meta/Google ads and analyze hooks & angles.</p>
+                <span class="status-badge status-building">In Development</span>
+            </a>
+
+            <!-- Clipcast -->
+            <a href="#" class="product-card">
+                <h3>Clipcast</h3>
+                <p>Content repurposing engine. Turn long-form YouTube podcasts into viral clips and threads.</p>
+                <span class="status-badge status-building">In Development</span>
+            </a>
+
+            <!-- GapRank -->
+            <a href="#" class="product-card">
+                <h3>GapRank</h3>
+                <p>Identify missing keyword opportunities by mapping your domain against a competitor.</p>
+                <span class="status-badge status-building">In Development</span>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Check auth status to update the top right button
+        const token = localStorage.getItem('haim_jwt');
+        const authLink = document.getElementById('auth-link');
+        
+        if (token) {
+            authLink.textContent = "Sign Out";
+            authLink.href = "#";
+            authLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.removeItem('haim_jwt');
+                window.location.reload();
+            });
+        }
+    </script>
+</body>
+</html>
