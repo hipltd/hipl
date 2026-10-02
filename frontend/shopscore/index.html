@@ -3,28 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ShopScore (LocalScore) | Haim International</title>
+    <title>ShopScore | Haim International</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%23EA580C'>∑</text></svg>">
     <style>
+        /* UNIVERSAL GLOBAL STYLES */
         body { font-family: 'Inter', sans-serif; background-color: #FAF9F6; color: #111827; margin: 0; padding: 0; line-height: 1.6; }
-        .container { max-width: 1000px; margin: 0 auto; padding: 40px 24px; }
         
+        header { padding: 40px 40px 0 40px; border-bottom: 1px solid #E5E7EB; max-width: 1200px; margin: 0 auto; }
+        .nav-links { display: flex; gap: 32px; padding-bottom: 16px; }
+        .nav-links a { 
+            text-decoration: none; color: #6B7280; font-weight: 600; font-size: 0.9rem; 
+            text-transform: uppercase; letter-spacing: 1px; transition: color 0.2s; 
+            padding-bottom: 16px; border-bottom: 2px solid transparent; 
+        }
+        .nav-links a:hover { color: #111827; }
+        .nav-links a.active { color: #EA580C; border-bottom: 2px solid #EA580C; }
+
+        /* UNIVERSAL TOOL LAYOUT */
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 40px; }
         .back-link {
             display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; 
             color: #6B7280; text-decoration: none; text-transform: uppercase; margin-bottom: 40px; transition: color 0.2s;
         }
         .back-link:hover { color: #EA580C; }
-
+        
         h1 { font-size: 3rem; font-weight: 700; margin: 0 0 16px 0; letter-spacing: -1px; }
         p.subtitle { font-size: 1.25rem; color: #4B5563; margin-bottom: 40px; }
         
+        /* TOOL SPECIFIC ELEMENTS */
         .search-box { display: flex; gap: 16px; margin-bottom: 16px; }
         input[type="text"] {
             flex: 1; padding: 16px 24px; font-size: 1.1rem; border: 1px solid #E5E7EB; 
             border-radius: 8px; font-family: 'Inter', sans-serif; outline: none;
         }
-        input[type="text"]:focus { border-color: #EA580C; }
+        input:focus { border-color: #EA580C; }
         button {
             padding: 16px 32px; background-color: #EA580C; color: white; border: none; 
             border-radius: 8px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: background-color 0.2s;
@@ -40,16 +52,10 @@
         .search-guide ol { margin: 0; padding-left: 20px; color: #4B5563; font-size: 0.95rem; }
         .search-guide li { margin-bottom: 4px; }
 
-        #error-message {
-            display: none; background-color: #FEE2E2; color: #991B1B; padding: 16px; 
-            border-radius: 8px; margin-bottom: 24px; border: 1px solid #F87171;
-        }
-
+        #error-message { display: none; background-color: #FEE2E2; color: #991B1B; padding: 16px; border-radius: 8px; margin-bottom: 24px; border: 1px solid #F87171; }
         #results-dashboard { display: none; }
-        .score-banner {
-            background-color: #111827; color: white; border-radius: 12px; padding: 32px; 
-            display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px;
-        }
+        
+        .score-banner { background-color: #111827; color: white; border-radius: 12px; padding: 32px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
         .score-banner h2 { margin: 0 0 8px 0; font-size: 2rem; }
         .score-banner p { margin: 0; color: #9CA3AF; font-family: 'JetBrains Mono', monospace; }
         
@@ -62,26 +68,36 @@
         .bad-card h3 { color: #DC2626; }
         .card ul { padding-left: 20px; margin: 0; color: #4B5563; }
         .card li { margin-bottom: 12px; }
-
         .metric-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #F3F4F6; }
-        .metric-row:last-child { border-bottom: none; }
         .metric-label { font-weight: 500; color: #374151; }
         .metric-val { font-family: 'JetBrains Mono', monospace; font-weight: 700; color: #EA580C; }
 
         @media (max-width: 768px) {
+            header { padding: 20px 20px 0 20px; }
+            .nav-links { gap: 16px; overflow-x: auto; white-space: nowrap; }
             .search-box { flex-direction: column; }
             .grid-layout { grid-template-columns: 1fr; }
             .score-banner { flex-direction: column; text-align: center; gap: 24px; }
+            .container { padding: 40px 20px; }
         }
     </style>
 </head>
 <body>
 
+    <header>
+        <nav class="nav-links">
+            <a href="../home/index.html">HOME</a>
+            <a href="#">ABOUT</a>
+            <a href="../products/index.html" class="active">PRODUCTS</a>
+            <a href="#">SERVICES</a>
+        </nav>
+    </header>
+
     <div class="container">
-        <a href="/products/index.html" class="back-link">← Back to Products</a>
+        <a href="../products/index.html" class="back-link">← Back to Products</a>
         
         <h1>ShopScore</h1>
-        <p class="subtitle">Audit Google Business Profiles, review velocity, and local search signals.</p>
+        <p class="subtitle">Google Business Profile auditing, review velocity tracking, and local SEO signals.</p>
         
         <form class="search-box" id="audit-form">
             <input type="text" id="query-input" placeholder="e.g. Joe's Coffee Shop, London" required>
@@ -146,17 +162,9 @@
             dashboard.style.display = "none";
 
             try {
-                const token = localStorage.getItem('haim_jwt');
-                const headers = { "Content-Type": "application/json" };
-                
-                if (token) {
-                    headers["Authorization"] = `Bearer ${token}`;
-                }
-
                 const response = await fetch("http://127.0.0.1:8000/api/local", {
                     method: "POST",
-                    headers: headers,
-                    credentials: "omit", 
+                    headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ 
                         query: query,
                         visitor_hash: visitorHash 
@@ -170,16 +178,12 @@
                 const data = await response.json();
 
                 if (!response.ok || data.error) {
-                    if (data.require_signup) {
-                        window.location.href = "../auth/index.html";
-                        return;
-                    }
                     throw new Error(data.error || "Failed to complete local profile audit.");
                 }
 
                 const scorecard = data.scorecard;
                 document.getElementById('target-query').textContent = "Search: " + query;
-                document.getElementById('total-score').textContent = scorecard.total_score;
+                document.getElementById('total-score').textContent = scorecard.total_score || "--";
                 
                 const mapsBtn = document.getElementById('maps-link');
                 if (scorecard.maps_link) {
@@ -191,14 +195,16 @@
 
                 const catContainer = document.getElementById('category-scores-container');
                 catContainer.innerHTML = "";
-                for (const [key, val] of Object.entries(scorecard.category_scores)) {
-                    const formattedKey = key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-                    catContainer.innerHTML += `
-                        <div class="metric-row">
-                            <span class="metric-label">${formattedKey}</span>
-                            <span class="metric-val">+${val} pts</span>
-                        </div>
-                    `;
+                if (scorecard.category_scores) {
+                    for (const [key, val] of Object.entries(scorecard.category_scores)) {
+                        const formattedKey = key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                        catContainer.innerHTML += `
+                            <div class="metric-row">
+                                <span class="metric-label">${formattedKey}</span>
+                                <span class="metric-val">+${val} pts</span>
+                            </div>
+                        `;
+                    }
                 }
 
                 const actionsUl = document.getElementById('action-items-list');
