@@ -8,9 +8,6 @@ BROWSER_UA = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
     "(KHTML, like Gecko) Chrome/124.0 Safari/537.36"
 )
-MIN_WORDS = 50          # below this the page is too thin to judge
-PASS_RATIO = 0.80       # raw HTML has >= 80% of the rendered text
-PARTIAL_RATIO = 0.40    # 40%-80% = partial, below 40% = fail
 # ------------------------------------------------------------- #
 
 # loading the API KEY
