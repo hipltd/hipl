@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In | Haim International</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%23EA580C'>∑</text></svg>">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #FAF9F6; color: #111827; margin: 0; display: flex; align-items: center; justify-content: center; height: 100vh; }
+        .auth-container { background: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 12px; padding: 40px; width: 100%; max-width: 400px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+        
+        h2 { margin: 0 0 8px 0; font-size: 1.75rem; font-weight: 700; text-align: center; }
+        p.subtitle { color: #4B5563; text-align: center; margin-bottom: 24px; font-size: 0.95rem; }
+
+        .form-group { margin-bottom: 16px; }
+        label { display: block; margin-bottom: 6px; font-size: 0.9rem; font-weight: 500; color: #374151; }
+        input[type="email"], input[type="password"] {
+            width: 100%; padding: 12px 16px; font-size: 1rem; border: 1px solid #E5E7EB; 
+            border-radius: 8px; font-family: 'Inter', sans-serif; outline: none; box-sizing: border-box;
+        }
+        input:focus { border-color: #EA580C; }
+
+        button {
+            width: 100%; padding: 14px; background-color: #EA580C; color: white; border: none; 
+            border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: background-color 0.2s; margin-top: 8px;
+        }
+        button:hover { background-color: #C2410C; }
+        button:disabled { background-color: #FCA5A5; cursor: not-allowed; }
+
+        .toggle-text { text-align: center; margin-top: 24px; font-size: 0.9rem; color: #4B5563; }
+        .toggle-text span { color: #EA580C; font-weight: 600; cursor: pointer; }
+        .toggle-text span:hover { text-decoration: underline; }
+
+        #error-message {
+            display: none; background-color: #FEE2E2; color: #991B1B; padding: 12px; 
+            border-radius: 8px; margin-bottom: 16px; font-size: 0.9rem; border: 1px solid #F87171; text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="auth-container">
+        <h2 id="form-title">Welcome Back</h2>
+        <p class="subtitle" id="form-subtitle">Sign in to unlock your daily ShopScore limits.</p>
+
+        <div id="error-message"></div>
+
+        <form id="auth-form">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password (6-12 characters)</label>
+                <input type="password" id="password" minlength="6" maxlength="12" required>
+            </div>
+            <button type="submit" id="submit-btn">Sign In</button>
+        </form>
+
+        <div class="toggle-text" id="toggle-container">
+            Don't have an account? <span id="toggle-mode">Sign up for free</span>
+        </div>
+    </div>
+
+    <script>
+        let isLoginMode = true;
+
+        const title = document.getElementById('form-title');
+        const subtitle = document.getElementById('form-subtitle');
+        const btn = document.getElementById('submit-btn');
+        const toggleMode = document.getElementById('toggle-mode');
+        const toggleContainer = document.getElementById('toggle-container');
+        const errorDiv = document.getElementById('error-message');
+
+        toggleMode.addEventListener('click', () => {
+            isLoginMode = !isLoginMode;
+            errorDiv.style.display = 'none';
+            if (isLoginMode) {
+                title.textContent = "Welcome Back";
+                subtitle.textContent = "Sign in to unlock your daily ShopScore limits.";
+                btn.textContent = "Sign In";
+                toggleContainer.innerHTML = `Don't have an account? <span id="toggle-mode" onclick="location.reload()">Sign up for free</span>`;
+            } else {
+                title.textContent = "Create Account";
+                subtitle.textContent = "Get 3 free local SEO audits every single day.";
+                btn.textContent = "Create Account";
+                toggleContainer.innerHTML = `Already have an account? <span id="toggle-mode" onclick="location.reload()">Sign in here</span>`;
+            }
+        });
+
+        document.getElementById('auth-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            btn.disabled = true;
+            btn.textContent = "Processing...";
+            errorDiv.style.display = "none";
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            if (password.length < 6 || password.length > 12) {
+                errorDiv.textContent = "Password must be between 6 and 12 characters.";
+                errorDiv.style.display = "block";
+                btn.disabled = false;
+                btn.textContent = isLoginMode ? "Sign In" : "Create Account";
+                return;
+            }
+
+            const endpoint = isLoginMode ? "/api/login" : "/api/register";
+
+            try {
+                const response = await fetch(`http://127.0.0.1:8000${endpoint}`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok || data.error) {
+                    throw new Error(data.error || "Authentication failed.");
+                }
+
+                localStorage.setItem('haim_jwt', data.access_token);
+                window.location.href = "../shopscore/index.html";
+
+            } catch (err) {
+                errorDiv.textContent = err.message;
+                errorDiv.style.display = "block";
+                btn.disabled = false;
+                btn.textContent = isLoginMode ? "Sign In" : "Create Account";
+            }
+        });
+    </script>
+</body>
+</html>
