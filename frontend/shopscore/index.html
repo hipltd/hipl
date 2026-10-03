@@ -4,81 +4,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ShopScore | Haim International</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* UNIVERSAL GLOBAL STYLES */
         body { font-family: 'Inter', sans-serif; background-color: #FAF9F6; color: #111827; margin: 0; padding: 0; line-height: 1.6; }
+        
+        h1, h2, h3, h4, .nav-links a { font-family: 'Plus Jakarta Sans', sans-serif; }
+        h1 { font-size: 3.5rem; font-weight: 800; margin: 0 0 16px 0; letter-spacing: -1.5px; color: #0F172A; }
+        h3 { font-size: 1.3rem; margin: 0 0 24px 0; font-weight: 700; }
         
         header { padding: 40px 40px 0 40px; border-bottom: 1px solid #E5E7EB; max-width: 1200px; margin: 0 auto; }
         .nav-links { display: flex; gap: 32px; padding-bottom: 16px; }
-        .nav-links a { 
-            text-decoration: none; color: #6B7280; font-weight: 600; font-size: 0.9rem; 
-            text-transform: uppercase; letter-spacing: 1px; transition: color 0.2s; 
-            padding-bottom: 16px; border-bottom: 2px solid transparent; 
-        }
-        .nav-links a:hover { color: #111827; }
+        .nav-links a { text-decoration: none; color: #64748B; font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; transition: all 0.3s ease; padding-bottom: 16px; border-bottom: 2px solid transparent; }
+        .nav-links a:hover { color: #0F172A; }
         .nav-links a.active { color: #EA580C; border-bottom: 2px solid #EA580C; }
 
-        /* UNIVERSAL TOOL LAYOUT */
         .container { max-width: 1000px; margin: 0 auto; padding: 40px 40px; }
-        .back-link {
-            display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; 
-            color: #6B7280; text-decoration: none; text-transform: uppercase; margin-bottom: 40px; transition: color 0.2s;
-        }
-        .back-link:hover { color: #EA580C; }
+        .back-link { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #64748B; text-decoration: none; text-transform: uppercase; margin-bottom: 40px; transition: all 0.2s ease; font-weight: 600; }
+        .back-link:hover { color: #EA580C; transform: translateX(-4px); }
         
-        h1 { font-size: 3rem; font-weight: 700; margin: 0 0 16px 0; letter-spacing: -1px; }
-        p.subtitle { font-size: 1.25rem; color: #4B5563; margin-bottom: 40px; }
-        
-        /* TOOL SPECIFIC ELEMENTS */
         .search-box { display: flex; gap: 16px; margin-bottom: 16px; }
-        input[type="text"] {
-            flex: 1; padding: 16px 24px; font-size: 1.1rem; border: 1px solid #E5E7EB; 
-            border-radius: 8px; font-family: 'Inter', sans-serif; outline: none;
-        }
-        input:focus { border-color: #EA580C; }
-        button {
-            padding: 16px 32px; background-color: #EA580C; color: white; border: none; 
-            border-radius: 8px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: background-color 0.2s;
-        }
+        input[type="text"] { flex: 1; padding: 16px 24px; font-size: 1.05rem; border: 1px solid #CBD5E1; border-radius: 10px; outline: none; }
+        input:focus { border-color: #EA580C; box-shadow: 0 0 0 4px rgba(234, 88, 12, 0.1); }
+        button { padding: 16px 32px; background-color: #EA580C; color: white; border: none; border-radius: 10px; font-size: 1.05rem; font-weight: 600; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif; }
         button:hover { background-color: #C2410C; }
         button:disabled { background-color: #FCA5A5; cursor: not-allowed; }
 
-        .search-guide {
-            background-color: #F3F4F6; padding: 16px 24px; border-radius: 8px; 
-            margin-bottom: 40px; border: 1px solid #E5E7EB;
-        }
-        .search-guide h4 { margin: 0 0 8px 0; color: #374151; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.5px; }
-        .search-guide ol { margin: 0; padding-left: 20px; color: #4B5563; font-size: 0.95rem; }
-        .search-guide li { margin-bottom: 4px; }
-
-        #error-message { display: none; background-color: #FEE2E2; color: #991B1B; padding: 16px; border-radius: 8px; margin-bottom: 24px; border: 1px solid #F87171; }
+        .search-guide { background-color: #F8FAFC; padding: 16px 24px; border-radius: 10px; margin-bottom: 40px; border: 1px solid #E2E8F0; }
+        .search-guide h4 { margin: 0 0 8px 0; color: #334155; font-size: 0.95rem; text-transform: uppercase; }
+        .search-guide ol { margin: 0; padding-left: 20px; color: #475569; font-size: 0.95rem; }
+        
+        #error-message { display: none; background-color: #FEF2F2; color: #991B1B; padding: 16px; border-radius: 10px; margin-bottom: 24px; border: 1px solid #F87171; }
         #results-dashboard { display: none; }
         
-        .score-banner { background-color: #111827; color: white; border-radius: 12px; padding: 32px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
+        .score-banner { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 32px; padding-bottom: 24px; border-bottom: 2px solid #E2E8F0; }
         .score-banner h2 { margin: 0 0 8px 0; font-size: 2rem; }
-        .score-banner p { margin: 0; color: #9CA3AF; font-family: 'JetBrains Mono', monospace; }
+        .score-banner p { margin: 0; color: #64748B; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; }
+        .maps-btn { display: inline-block; margin-top: 12px; color: #EA580C; text-decoration: none; font-weight: 700; }
+        .score-number { display: block; font-size: 4rem; font-weight: 800; color: #EA580C; line-height: 1; font-family: 'Plus Jakarta Sans', sans-serif; text-align: right; }
+        .score-label { font-size: 0.75rem; text-transform: uppercase; color: #94A3B8; letter-spacing: 1.5px; font-weight: 700; text-align: right; display: block; }
         
-        .maps-btn { display: inline-block; margin-top: 12px; color: #EA580C; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; }
-        .maps-btn:hover { text-decoration: underline; }
+        .card { background-color: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 16px; padding: 32px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); margin-bottom: 24px; }
+        ul.insight-list { padding-left: 20px; color: #475569; margin: 0; }
+        ul.insight-list li { margin-bottom: 12px; }
+        .text-red { color: #DC2626; }
 
-        .grid-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-        .card { background-color: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 12px; padding: 32px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
-        .card h3 { margin: 0 0 16px 0; font-size: 1.2rem; }
-        .bad-card h3 { color: #DC2626; }
-        .card ul { padding-left: 20px; margin: 0; color: #4B5563; }
-        .card li { margin-bottom: 12px; }
-        .metric-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #F3F4F6; }
-        .metric-label { font-weight: 500; color: #374151; }
-        .metric-val { font-family: 'JetBrains Mono', monospace; font-weight: 700; color: #EA580C; }
+        /* LIGHTHOUSE STYLE ROWS - 2 COLUMN GRID */
+        .lighthouse-container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 40px; }
+        .lighthouse-container > div:nth-child(3) { grid-column: 1 / -1; /* Forces the 3rd card to span the full width */ }
+        .lighthouse-row { background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 12px; padding: 20px 24px; display: flex; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        
+        /* CIRCULAR PROGRESS RING (Conic Gradient Base) */
+        .score-circle { position: relative; width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .score-circle-inner { position: absolute; inset: 4px; background-color: #FFFFFF; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.1rem; }
+        
+        .lh-text { margin-left: 20px; flex-grow: 1; }
+        .lh-title { margin: 0 0 4px 0; font-size: 1.15rem; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; color: #0F172A; }
+        .lh-desc { margin: 0; font-size: 0.9rem; color: #64748B; }
 
         @media (max-width: 768px) {
-            header { padding: 20px 20px 0 20px; }
-            .nav-links { gap: 16px; overflow-x: auto; white-space: nowrap; }
-            .search-box { flex-direction: column; }
-            .grid-layout { grid-template-columns: 1fr; }
-            .score-banner { flex-direction: column; text-align: center; gap: 24px; }
-            .container { padding: 40px 20px; }
+            .score-banner { flex-direction: column; align-items: flex-start; gap: 16px; }
+            .lighthouse-container { grid-template-columns: 1fr; }
+            .lighthouse-container > div:nth-child(3) { grid-column: auto; }
         }
     </style>
 </head>
@@ -87,15 +73,14 @@
     <header>
         <nav class="nav-links">
             <a href="../home/index.html">HOME</a>
-            <a href="#">ABOUT</a>
+            <a href="../about/index.html">ABOUT</a>
             <a href="../products/index.html" class="active">PRODUCTS</a>
-            <a href="#">SERVICES</a>
+            <a href="../services/index.html">SERVICES</a>
         </nav>
     </header>
 
     <div class="container">
         <a href="../products/index.html" class="back-link">← Back to Products</a>
-        
         <h1>ShopScore</h1>
         <p class="subtitle">Google Business Profile auditing, review velocity tracking, and local SEO signals.</p>
         
@@ -108,36 +93,34 @@
             <h4>How to search effectively:</h4>
             <ol>
                 <li>Type the <strong>exact business name</strong> as it appears on Google.</li>
-                <li>Add a comma, then the <strong>city or neighborhood</strong> (e.g., "Starbucks, Soho").</li>
-                <li>Ensure the business actually has a verified Google Maps listing.</li>
+                <li>Add a comma, then the <strong>city or neighborhood</strong>.</li>
             </ol>
         </div>
 
         <div id="error-message"></div>
 
         <div id="results-dashboard">
+            <!-- 1. Audit Complete Banner -->
             <div class="score-banner">
                 <div>
                     <h2>Audit Complete</h2>
                     <p id="target-query">Search: </p>
                     <a href="#" id="maps-link" target="_blank" class="maps-btn">View on Google Maps →</a>
                 </div>
-                <div style="text-align: right;">
-                    <span id="total-score" style="display: block; font-size: 3rem; font-weight: 700; color: #EA580C;"></span>
-                    <span style="font-size: 0.8rem; text-transform: uppercase; color: #9CA3AF; letter-spacing: 1px;">Local Score / 100</span>
+                <div>
+                    <span class="score-number" id="total-score"></span>
+                    <span class="score-label">Local Score / 100</span>
                 </div>
             </div>
 
-            <div class="grid-layout">
-                <div class="card">
-                    <h3>Signal Breakdown</h3>
-                    <div id="category-scores-container"></div>
-                </div>
-                <div class="card bad-card">
-                    <h3>⚠ Recommendations</h3>
-                    <ul id="action-items-list"></ul>
-                </div>
+            <!-- 2. Recommendations (Moved to Top) -->
+            <div class="card">
+                <h3 class="text-red">⚠ Local SEO Recommendations</h3>
+                <ul class="insight-list" id="action-items-list"></ul>
             </div>
+
+            <!-- 3. Lighthouse Scorecards (2-Column Grid) -->
+            <div class="lighthouse-container" id="lighthouse-metrics"></div>
         </div>
     </div>
 
@@ -148,9 +131,38 @@
             localStorage.setItem('haim_visitor_hash', visitorHash);
         }
 
+        const localMaxPoints = {
+            "average_rating": 40,
+            "total_reviews": 30,
+            "profile_completeness": 30
+        };
+
+        const metricDescriptions = {
+            "average_rating": "Aggregate score based on customer sentiment and star ratings.",
+            "total_reviews": "Review velocity and volume compared to local thresholds.",
+            "profile_completeness": "Verification, hours, photos, and core listing data."
+        };
+
+        function getRingColor(percentage) {
+            if (isNaN(percentage)) return "#CBD5E1"; 
+            if (percentage >= 90) return "#22C55E"; 
+            if (percentage >= 50) return "#F59E0B"; 
+            return "#EF4444"; 
+        }
+
+        function getTextColor(percentage) {
+            if (isNaN(percentage)) return "#475569";
+            if (percentage >= 90) return "#166534";
+            if (percentage >= 50) return "#92400E";
+            return "#991B1B";
+        }
+
+        function formatKey(key) {
+            return key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+        }
+
         document.getElementById('audit-form').addEventListener('submit', async (e) => {
             e.preventDefault();
-            
             const query = document.getElementById('query-input').value;
             const btn = document.getElementById('submit-btn');
             const errorDiv = document.getElementById('error-message');
@@ -165,25 +177,17 @@
                 const response = await fetch("http://127.0.0.1:8000/api/local", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ 
-                        query: query,
-                        visitor_hash: visitorHash 
-                    })
+                    body: JSON.stringify({ query: query, visitor_hash: visitorHash })
                 });
 
-                if (!response.ok && response.headers.get("content-type")?.indexOf("application/json") === -1) {
-                    throw new Error("Backend server error. Ensure Uvicorn is running on port 8000.");
-                }
-
                 const data = await response.json();
-
-                if (!response.ok || data.error) {
-                    throw new Error(data.error || "Failed to complete local profile audit.");
-                }
+                if (!response.ok || data.error) throw new Error(data.error || "Failed to complete local profile audit.");
 
                 const scorecard = data.scorecard;
+                
                 document.getElementById('target-query').textContent = "Search: " + query;
-                document.getElementById('total-score').textContent = scorecard.total_score || "--";
+                let total = scorecard.total_score || 0;
+                document.getElementById('total-score').textContent = typeof total === 'number' ? Math.round(total) : total;
                 
                 const mapsBtn = document.getElementById('maps-link');
                 if (scorecard.maps_link) {
@@ -193,32 +197,42 @@
                     mapsBtn.style.display = "none";
                 }
 
-                const catContainer = document.getElementById('category-scores-container');
-                catContainer.innerHTML = "";
-                if (scorecard.category_scores) {
-                    for (const [key, val] of Object.entries(scorecard.category_scores)) {
-                        const formattedKey = key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-                        catContainer.innerHTML += `
-                            <div class="metric-row">
-                                <span class="metric-label">${formattedKey}</span>
-                                <span class="metric-val">+${val} pts</span>
-                            </div>
-                        `;
-                    }
-                }
-
+                // Build Recommendations List cleanly at the top
                 const actionsUl = document.getElementById('action-items-list');
                 actionsUl.innerHTML = "";
-                if (scorecard.recommendations && scorecard.recommendations.length > 0) {
-                    scorecard.recommendations.forEach(rec => {
-                        actionsUl.innerHTML += `<li>${rec}</li>`;
-                    });
+                if (Array.isArray(scorecard.recommendations) && scorecard.recommendations.length > 0) {
+                    scorecard.recommendations.forEach(rec => { actionsUl.innerHTML += `<li>${rec}</li>`; });
                 } else {
                     actionsUl.innerHTML = "<li>No critical issues found. Your local search footprint is highly optimized.</li>";
                 }
 
-                dashboard.style.display = "block";
+                // Build Lighthouse Rows (Dynamically applying CSS grid layout)
+                let lhHTML = '';
+                if (scorecard.category_scores) {
+                    for (const [key, val] of Object.entries(scorecard.category_scores)) {
+                        const scoreNum = Math.round(parseFloat(val));
+                        const maxVal = localMaxPoints[key.toLowerCase()] || 100;
+                        const percentage = Math.round((scoreNum / maxVal) * 100);
+                        
+                        const ringColor = getRingColor(percentage);
+                        const txtColor = getTextColor(percentage);
+                        const desc = metricDescriptions[key.toLowerCase()] || "Local optimization metric score.";
+                        
+                        lhHTML += `
+                        <div class="lighthouse-row">
+                            <div class="score-circle" style="background: conic-gradient(${ringColor} ${percentage}%, #E2E8F0 ${percentage}%);">
+                                <div class="score-circle-inner" style="color: ${txtColor};">${scoreNum}</div>
+                            </div>
+                            <div class="lh-text">
+                                <p class="lh-title">${formatKey(key)}</p>
+                                <p class="lh-desc">${desc}</p>
+                            </div>
+                        </div>`;
+                    }
+                }
+                document.getElementById('lighthouse-metrics').innerHTML = lhHTML || "<p>No category data available.</p>";
 
+                dashboard.style.display = "block";
             } catch (err) {
                 errorDiv.textContent = err.message;
                 errorDiv.style.display = "block";

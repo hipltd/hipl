@@ -4,34 +4,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Haim International | Data-Driven Growth</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* UNIVERSAL GLOBAL STYLES */
-        body { font-family: 'Inter', sans-serif; background-color: #FAF9F6; color: #111827; margin: 0; padding: 0; line-height: 1.6; }
-        
-        header { padding: 40px 40px 0 40px; border-bottom: 1px solid #E5E7EB; max-width: 1200px; margin: 0 auto; }
-        .nav-links { display: flex; gap: 32px; padding-bottom: 16px; }
-        .nav-links a { 
-            text-decoration: none; color: #6B7280; font-weight: 600; font-size: 0.9rem; 
-            text-transform: uppercase; letter-spacing: 1px; transition: color 0.2s; 
-            padding-bottom: 16px; border-bottom: 2px solid transparent; 
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #FAF9F6; 
+            color: #111827; 
+            margin: 0; 
+            padding: 0; 
+            line-height: 1.6; 
         }
-        .nav-links a:hover { color: #111827; }
+        
+        h1, .nav-links a { font-family: 'Plus Jakarta Sans', sans-serif; }
+        
+        header { padding: 40px 40px 0 40px; border-bottom: 1px solid #E5E7EB; max-width: 1200px; margin: 0 auto; width: 100%; box-sizing: border-box; }
+        .nav-links { display: flex; gap: 32px; padding-bottom: 16px; }
+        .nav-links a { text-decoration: none; color: #64748B; font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; transition: all 0.3s ease; padding-bottom: 16px; border-bottom: 2px solid transparent; }
+        .nav-links a:hover { color: #0F172A; }
         .nav-links a.active { color: #EA580C; border-bottom: 2px solid #EA580C; }
 
-        /* HOME SPECIFIC LAYOUT - Now aligned with Header */
-        .container { max-width: 1200px; margin: 0 auto; padding: 80px 40px; }
-        
+        .container { max-width: 1200px; margin: 0 auto; padding: 80px 40px; box-sizing: border-box; }
+
+        /* Restored Orange Pill Styling */
         .pill { 
-            display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; 
-            color: #EA580C; text-transform: uppercase; letter-spacing: 1px; font-weight: 700;
-            padding: 6px 16px; border: 1px solid #FDBA74; border-radius: 9999px; 
-            background-color: rgba(253, 186, 116, 0.1); margin-bottom: 32px;
+            display: inline-block; 
+            font-family: 'JetBrains Mono', monospace; 
+            font-size: 0.8rem; 
+            color: #EA580C; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            font-weight: 700;
+            padding: 6px 16px; 
+            border: 1px solid #FDBA74; 
+            border-radius: 9999px; 
+            background-color: rgba(253, 186, 116, 0.1); 
+            margin-bottom: 32px;
+        }
+        
+        /* Expanded Widths to Allow Flow Across the Canvas */
+        h1 { 
+            font-size: 4.25rem; 
+            font-weight: 800; 
+            margin: 0 0 24px 0; 
+            letter-spacing: -1.5px; 
+            color: #0F172A; 
+            line-height: 1.1; 
+            max-width: 1050px; 
         }
 
-        h1 { font-size: 4rem; font-weight: 700; margin: 0 0 32px 0; letter-spacing: -1.5px; color: #111827; line-height: 1.1; max-width: 800px; }
-        
-        p.body-text { font-size: 1.25rem; color: #4B5563; margin-bottom: 40px; max-width: 650px; line-height: 1.7; }
+        p.body-text { 
+            font-size: 1.25rem; 
+            color: #475569; 
+            margin-bottom: 0; 
+            max-width: 950px; 
+            line-height: 1.7; 
+        }
         p.body-text strong { color: #EA580C; font-weight: 700; }
 
         @media (max-width: 768px) {

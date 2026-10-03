@@ -3,31 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About | Haim International</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <title>Haim International</title>
+    <!-- Upgraded Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* UNIVERSAL GLOBAL STYLES */
+        /* PREMIUM GLOBAL STYLES */
         body { font-family: 'Inter', sans-serif; background-color: #FAF9F6; color: #111827; margin: 0; padding: 0; line-height: 1.6; }
+        
+        /* Typography Upgrades */
+        h1, h2, h3, h4, .nav-links a { font-family: 'Plus Jakarta Sans', sans-serif; }
+        h1 { font-size: 3.5rem; font-weight: 800; margin: 0 0 16px 0; letter-spacing: -1.5px; color: #0F172A; }
+        h2 { font-weight: 700; letter-spacing: -0.5px; }
+        h3 { font-weight: 700; letter-spacing: -0.3px; }
         
         header { padding: 40px 40px 0 40px; border-bottom: 1px solid #E5E7EB; max-width: 1200px; margin: 0 auto; }
         .nav-links { display: flex; gap: 32px; padding-bottom: 16px; }
         .nav-links a { 
-            text-decoration: none; color: #6B7280; font-weight: 600; font-size: 0.9rem; 
-            text-transform: uppercase; letter-spacing: 1px; transition: color 0.2s; 
+            text-decoration: none; color: #64748B; font-weight: 700; font-size: 0.85rem; 
+            text-transform: uppercase; letter-spacing: 1.5px; transition: all 0.3s ease; 
             padding-bottom: 16px; border-bottom: 2px solid transparent; 
         }
-        .nav-links a:hover { color: #111827; }
+        .nav-links a:hover { color: #0F172A; }
         .nav-links a.active { color: #EA580C; border-bottom: 2px solid #EA580C; }
 
-        /* UNIVERSAL CONTAINER */
-        .container { max-width: 1200px; margin: 0 auto; padding: 80px 40px; }
-        h1 { font-size: 3rem; font-weight: 700; margin: 0 0 24px 0; letter-spacing: -1px; color: #111827; }
-        p.body-text { font-size: 1.15rem; color: #4B5563; margin-bottom: 24px; max-width: 800px; line-height: 1.7; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 40px; }
+        p.subtitle, p.body-text { font-size: 1.15rem; color: #475569; margin-bottom: 40px; line-height: 1.7; }
+        
+        /* Tactile Inputs & Buttons */
+        input[type="url"], input[type="text"] {
+            flex: 1; padding: 16px 24px; font-size: 1.05rem; border: 1px solid #CBD5E1; 
+            border-radius: 10px; font-family: 'Inter', sans-serif; outline: none;
+            transition: all 0.2s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.02) inset;
+        }
+        input:focus { border-color: #EA580C; box-shadow: 0 0 0 4px rgba(234, 88, 12, 0.1); }
+        
+        button {
+            padding: 16px 32px; background-color: #EA580C; color: white; border: none; 
+            border-radius: 10px; font-size: 1.05rem; font-weight: 600; cursor: pointer; 
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: 'Plus Jakarta Sans', sans-serif; letter-spacing: 0.5px;
+        }
+        button:hover { background-color: #C2410C; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(234, 88, 12, 0.2); }
+        button:active { transform: translateY(0); }
+        button:disabled { background-color: #FCA5A5; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        /* Smooth Card Interactions */
+        .grid-layout { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+        .product-card, .card { 
+            background-color: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 16px; padding: 32px; 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03); 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        a.product-card { display: flex; flex-direction: column; text-decoration: none; color: inherit; }
+        a.product-card:hover { 
+            transform: translateY(-6px) scale(1.01); 
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02); 
+            border-color: #FDBA74; 
+        }
+        
+        /* Pills & Badges */
+        .status-badge { 
+            align-self: flex-start; padding: 6px 14px; border-radius: 9999px; font-size: 0.75rem; 
+            font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .status-live { background-color: #ECFDF5; color: #059669; border: 1px solid #A7F3D0; }
+        
+        .back-link {
+            display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; 
+            color: #64748B; text-decoration: none; text-transform: uppercase; margin-bottom: 40px; 
+            transition: all 0.2s ease; font-weight: 600; letter-spacing: -0.5px;
+        }
+        .back-link:hover { color: #EA580C; transform: translateX(-4px); }
 
         @media (max-width: 768px) {
             header { padding: 20px 20px 0 20px; }
             .nav-links { gap: 16px; overflow-x: auto; white-space: nowrap; }
             .container { padding: 40px 20px; }
+            h1 { font-size: 2.5rem; }
         }
     </style>
 </head>
@@ -45,7 +98,10 @@
     <div class="container">
         <h1>About Us</h1>
         <p class="body-text">
-            Haim International was built to remove the guesswork from digital marketing. By engineering proprietary diagnostic tools—from local SEO velocity trackers to AI crawler readiness audits—we empower agencies and business owners to make decisions based on quantitative signals, not industry myths.
+            At Haim, we help you outcompete your competitors through data-driven growth strategies. Use our comprehensive suite of data-driven products that give you real-time and actionable info on how to grow, what tools to use, and more. </p>
+        </p>
+        <p class="body-text">
+            Our founder, <a href="https://www.linkedin.com/in/priyansh-saxena/" target="_blank">Priyansh Saxena</a>, has 5 years+ experience in working with companies in fintech space and designing data-driven solutions to help them win. Past clients: <a href="https://www.blocmates.com/" target="_blank">blocmates</a>, <a href="https://castlelabs.io/" target="_blank">Castle Capital</a>, <a href="https://aark.digital/en/" target="_blank">Aark</a>, <a href="https://neemo.finance/" target="_blank">Neemo Finance</a>, among others.</p>
         </p>
     </div>
 

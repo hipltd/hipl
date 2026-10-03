@@ -3,50 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Products | Haim International</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <title>Haim International</title>
+    <!-- Upgraded Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* UNIVERSAL GLOBAL STYLES */
+        /* PREMIUM GLOBAL STYLES */
         body { font-family: 'Inter', sans-serif; background-color: #FAF9F6; color: #111827; margin: 0; padding: 0; line-height: 1.6; }
+        
+        /* Typography Upgrades */
+        h1, h2, h3, h4, .nav-links a { font-family: 'Plus Jakarta Sans', sans-serif; }
+        h1 { font-size: 3.5rem; font-weight: 800; margin: 0 0 16px 0; letter-spacing: -1.5px; color: #0F172A; }
+        h2 { font-weight: 700; letter-spacing: -0.5px; }
+        h3 { font-weight: 700; letter-spacing: -0.3px; }
         
         header { padding: 40px 40px 0 40px; border-bottom: 1px solid #E5E7EB; max-width: 1200px; margin: 0 auto; }
         .nav-links { display: flex; gap: 32px; padding-bottom: 16px; }
         .nav-links a { 
-            text-decoration: none; color: #6B7280; font-weight: 600; font-size: 0.9rem; 
-            text-transform: uppercase; letter-spacing: 1px; transition: color 0.2s; 
+            text-decoration: none; color: #64748B; font-weight: 700; font-size: 0.85rem; 
+            text-transform: uppercase; letter-spacing: 1.5px; transition: all 0.3s ease; 
             padding-bottom: 16px; border-bottom: 2px solid transparent; 
         }
-        .nav-links a:hover { color: #111827; }
+        .nav-links a:hover { color: #0F172A; }
         .nav-links a.active { color: #EA580C; border-bottom: 2px solid #EA580C; }
 
-        /* UNIVERSAL CONTAINER */
         .container { max-width: 1000px; margin: 0 auto; padding: 40px 40px; }
-        h1 { font-size: 3rem; font-weight: 700; margin: 0 0 16px 0; letter-spacing: -1px; color: #111827; }
-        p.subtitle { font-size: 1.25rem; color: #4B5563; margin-bottom: 40px; }
+        p.subtitle, p.body-text { font-size: 1.15rem; color: #475569; margin-bottom: 40px; line-height: 1.7; }
         
-        /* PRODUCT CARDS GRID */
+        /* Tactile Inputs & Buttons */
+        input[type="url"], input[type="text"] {
+            flex: 1; padding: 16px 24px; font-size: 1.05rem; border: 1px solid #CBD5E1; 
+            border-radius: 10px; font-family: 'Inter', sans-serif; outline: none;
+            transition: all 0.2s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.02) inset;
+        }
+        input:focus { border-color: #EA580C; box-shadow: 0 0 0 4px rgba(234, 88, 12, 0.1); }
+        
+        button {
+            padding: 16px 32px; background-color: #EA580C; color: white; border: none; 
+            border-radius: 10px; font-size: 1.05rem; font-weight: 600; cursor: pointer; 
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: 'Plus Jakarta Sans', sans-serif; letter-spacing: 0.5px;
+        }
+        button:hover { background-color: #C2410C; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(234, 88, 12, 0.2); }
+        button:active { transform: translateY(0); }
+        button:disabled { background-color: #FCA5A5; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        /* Smooth Card Interactions */
         .grid-layout { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
-        
-        .product-card { 
-            background-color: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 12px; padding: 32px; 
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); transition: transform 0.2s, box-shadow 0.2s;
-            display: flex; flex-direction: column; text-decoration: none; color: inherit;
+        .product-card, .card { 
+            background-color: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 16px; padding: 32px; 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03); 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .product-card:hover { transform: translateY(-4px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); border-color: #EA580C; }
+        a.product-card { display: flex; flex-direction: column; text-decoration: none; color: inherit; }
+        a.product-card:hover { 
+            transform: translateY(-6px) scale(1.01); 
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02); 
+            border-color: #FDBA74; 
+        }
         
-        .product-card h3 { margin: 0 0 12px 0; font-size: 1.5rem; color: #111827; }
-        .product-card p { margin: 0 0 24px 0; color: #4B5563; font-size: 0.95rem; flex-grow: 1; }
-        
+        /* Pills & Badges */
         .status-badge { 
-            align-self: flex-start; padding: 4px 12px; border-radius: 9999px; font-size: 0.75rem; 
-            font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
+            align-self: flex-start; padding: 6px 14px; border-radius: 9999px; font-size: 0.75rem; 
+            font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
-        .status-live { background-color: #D1FAE5; color: #065F46; }
+        .status-live { background-color: #ECFDF5; color: #059669; border: 1px solid #A7F3D0; }
+        
+        .back-link {
+            display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; 
+            color: #64748B; text-decoration: none; text-transform: uppercase; margin-bottom: 40px; 
+            transition: all 0.2s ease; font-weight: 600; letter-spacing: -0.5px;
+        }
+        .back-link:hover { color: #EA580C; transform: translateX(-4px); }
 
         @media (max-width: 768px) {
             header { padding: 20px 20px 0 20px; }
             .nav-links { gap: 16px; overflow-x: auto; white-space: nowrap; }
             .container { padding: 40px 20px; }
+            h1 { font-size: 2.5rem; }
         }
     </style>
 </head>
@@ -63,18 +97,18 @@
 
     <div class="container">
         <h1>Products</h1>
-        <p class="subtitle">A complete suite of diagnostic and intelligence tools for digital marketers and agencies.</p>
+        <p class="subtitle">Our complete suite of diagnostic and intelligence tools for digital marketers and agencies.</p>
         
         <div class="grid-layout">
             <a href="../siteflare/index.html" class="product-card">
                 <h3>SiteFlare</h3>
-                <p>Quantitative audit on marketing architecture, SEO technicals, and AI crawler readiness.</p>
+                <p>Test if your website is AI-ready and SEO-friendly.</p>
                 <span class="status-badge status-live">Live (Free)</span>
             </a>
 
             <a href="../shopscore/index.html" class="product-card">
                 <h3>ShopScore</h3>
-                <p>Google Business Profile auditing, review velocity tracking, and local SEO signals.</p>
+                <p>Test if your profile on Google Maps is visible to customers.</p>
                 <span class="status-badge status-live">Live (Limits Apply)</span>
             </a>
         </div>
