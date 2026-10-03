@@ -3,6 +3,8 @@ from datetime import datetime
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from fastapi.responses import RedirectResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from dotenv import load_dotenv
 from slowapi import Limiter
@@ -21,6 +23,18 @@ db_name = os.getenv('DB_NAME')
 
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"]
+)
+
+@app.get("/")
+async def root_redirect():
+    return RedirectResponse(url="/home/")
+
 limiter = Limiter(key_func=get_remote_address)
 app.state.limiter = limiter
 
@@ -30,19 +44,6 @@ async def rate_limit_handler(request: Request, exc: RateLimitExceeded):
         status_code=429,
         content={"error": "Too many requests. Please wait a minute before running another audit."}
     )
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-        "http://localhost:8000",
-        "http://127.0.0.1:8000"
-    ],  
-    allow_credentials=True, 
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
 
 class URLRequest(BaseModel):
     url: str
@@ -122,10 +123,9 @@ async def run_local_audit(request: Request, body: LocalRequest):
     
     except Exception as e:
         return {"error": f"An unexpected error occurred during the local audit: {str(e)}."}
+# ------------------------------------------------------------- #
 
-# ------------------------------------------------------------- #
-# SiteFlare Endpoint (Completely Free & Unrestricted)
-# ------------------------------------------------------------- #
+# siteflare endpoint 
 @app.post("/api/audit")
 @limiter.limit("5/minute")
 async def run_audit(request: Request, body: URLRequest):
@@ -142,3 +142,8 @@ async def run_audit(request: Request, body: URLRequest):
 
     except Exception as e:
         return {"error": f"An unexpected error occurred during the website audit: {str(e)}."}
+# ------------------------------------------------------------- #
+
+app.mount("/", StaticFiles(directory="frontend", html=True), name="frontend")
+
+# ------------------------------------------------------------- #
