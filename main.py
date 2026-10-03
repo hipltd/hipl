@@ -53,9 +53,18 @@ class LocalRequest(BaseModel):
     visitor_hash: str 
 # ------------------------------------------------------------- #
 
+DATABASE_URL = os.getenv("DATABASE_URL")
+
 @app.on_event("startup")
 async def init_db():
-    connection = await asyncpg.connect(f"postgresql://{db_username}:{db_password}@localhost:5432/{db_name}")
+    if DATABASE_URL:
+        formatted_url = DATABASE_URL.replace("postgres://", "postgresql://", 1)
+        connection = await asyncpg.connect(formatted_url)
+    else:
+        db_username = os.getenv("DB_USER", "postgres")
+        db_password = os.getenv("DB_PASSWORD", "")
+        db_name = os.getenv("DB_NAME", "")
+        connection = await asyncpg.connect(f"postgresql://{db_username}:{db_password}@localhost:5432/{db_name}")
     
     # Simple table to track anonymous daily usage
     await connection.execute("""
