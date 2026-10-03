@@ -82,8 +82,17 @@ async def init_db():
 @app.post("/api/local")
 @limiter.limit("5/minute")
 async def run_local_audit(request: Request, body: LocalRequest):
-    try:
+    
+    if DATABASE_URL:
+        formatted_url = DATABASE_URL.replace("postgres://", "postgresql://", 1)
+        connection = await asyncpg.connect(formatted_url)
+    else:
+        db_username = os.getenv("DB_USER", "postgres")
+        db_password = os.getenv("DB_PASSWORD", "")
+        db_name = os.getenv("DB_NAME", "")
         connection = await asyncpg.connect(f"postgresql://{db_username}:{db_password}@localhost:5432/{db_name}")
+
+    try:    
         current_date = datetime.utcnow().date()
 
         record = await connection.fetchrow(
