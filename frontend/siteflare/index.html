@@ -177,7 +177,7 @@
             dashboard.style.display = "none";
 
             try {
-                const response = await fetch("/api/siteflare/audit", {
+                const response = await fetch("/api/audit", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ url: url })

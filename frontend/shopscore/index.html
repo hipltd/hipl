@@ -174,7 +174,7 @@
             dashboard.style.display = "none";
 
             try {
-                const response = await fetch("/api/shopscore/audit", {
+                const response = await fetch("/api/local", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ query: query, visitor_hash: visitorHash })
