@@ -156,3 +156,10 @@ async def run_audit(request: Request, body: URLRequest):
 app.mount("/", StaticFiles(directory="frontend", html=True), name="frontend")
 
 # ------------------------------------------------------------- #
+
+if __name__ == "__main__":
+    import uvicorn
+    # Pull the PORT environment variable injected by Railway (defaults to 8080 locally)
+    port = int(os.getenv("PORT", 8080))
+    # Bind to 0.0.0.0 so Railway can route external web traffic into the app
+    uvicorn.run("main:app", host="0.0.0.0", port=port)
